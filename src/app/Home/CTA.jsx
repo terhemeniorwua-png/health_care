@@ -13,7 +13,7 @@ export default function CtaSection() {
           </p>
           <div className="mt-8">
             <Link
-              href="/get-started"
+              href="/auth/register"
               className="inline-flex items-center justify-center font-body font-semibold text-sm text-white bg-teal-600 hover:bg-teal-700 px-6 py-3 rounded-md transition-colors shadow-sm"
             >
               Get Started

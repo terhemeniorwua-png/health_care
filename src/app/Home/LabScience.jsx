@@ -26,7 +26,7 @@ export default function LaboratorySection() {
             </Link>
 
             <Link
-              href="/hospitals"
+              href="/laboratories"
               className="inline-flex items-center justify-center gap-2 font-body font-medium text-sm text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 px-5 py-3 rounded-md transition-colors shadow-sm"
             >
               <Building2 className="w-4 h-4 text-teal-600" />

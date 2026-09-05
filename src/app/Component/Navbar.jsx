@@ -6,12 +6,11 @@ import { usePathname } from "next/navigation";
 import { Search, Menu, X, Plus } from "lucide-react";
 
 const NAV_LINKS = [
-  { name: "Find Care", href: "/find-care" },
   { name: "Doctors", href: "/doctors" },
   { name: "Medicines", href: "/medicines" },
   { name: "Lab Tests", href: "/lab-tests" },
   { name: "Hospitals", href: "/hospitals" },
-  { name: "Health Services", href: "/health-services" },
+  { name: "Health Services", href: "/services" },
 ];
 
 export default function Navbar() {

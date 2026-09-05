@@ -61,7 +61,7 @@ export default function Hero() {
           </Link>
 
           <Link
-            href="/health-services"
+            href="/services"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-body font-medium text-sm text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 px-5 py-3 rounded-md transition-colors shadow-sm"
           >
             <ShieldPlus className="w-4 h-4 text-teal-600" />

@@ -90,7 +90,7 @@ export default function HealthResources() {
 
         <div className="mt-8 text-center">
           <Link
-            href="/blog"
+          href="/articles"
             className="inline-flex items-center justify-center font-body font-semibold text-sm text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 px-6 py-2.5 rounded-md transition-colors shadow-sm"
           >
             View Health Resources

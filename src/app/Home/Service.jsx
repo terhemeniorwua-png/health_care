@@ -37,7 +37,7 @@ const SERVICES = [
     title: "Online Consultation",
     description: "Speak with a healthcare professional from anywhere.",
     icon: Video,
-    href: "/online-consultation",
+    href:"/appointments/book?type=video",
   },
   {
     title: "Home Healthcare",

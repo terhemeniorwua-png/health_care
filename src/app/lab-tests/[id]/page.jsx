@@ -12,10 +12,11 @@ import {
   CalendarCheck,
 } from "lucide-react";
 
-export default function LabTestDetailsPage({ params }) {
-  // Mock Data for Full Blood Count
+export default async function LabTestDetailsPage({ params }) {
+  const { id } = await params;
+
   const testDetails = {
-    id: params?.id || "fbc",
+    id,
     name: "Full Blood Count",
     price: 8000,
     whatItChecks:

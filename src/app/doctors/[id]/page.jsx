@@ -175,9 +175,10 @@ export default function DoctorProfilePage({ params }) {
             {/* Header CTA Buttons */}
             <div className="flex sm:flex-col gap-3 w-full md:w-auto shrink-0">
               <Link
-                href={`/doctors/${doctor.id}/book?time=${encodeURIComponent(
-                  selectedTime
-                )}&date=${selectedDate}`}
+                href='/doctor/dashboard'
+//                 {`/doctors/${doctor.id}?type=${consultationMode}&date=${selectedDate}&time=${encodeURIComponent(
+//   selectedTime
+// )}`}
                 className="flex-1 sm:flex-none text-center font-semibold text-sm text-white bg-teal-600 hover:bg-teal-700 px-6 py-3 rounded-lg transition-colors shadow-sm"
               >
                 Book Appointment
@@ -445,9 +446,9 @@ export default function DoctorProfilePage({ params }) {
               {/* Booking CTA */}
               <div className="pt-2">
                 <Link
-                  href={`/doctors/${doctor.id}/book?type=${consultationMode}&date=${selectedDate}&time=${encodeURIComponent(
-                    selectedTime
-                  )}`}
+                  href={`/doctors/${doctor.id}?type=${consultationMode}&date=${selectedDate}&time=${encodeURIComponent(
+  selectedTime
+)}`}
                   className="w-full flex items-center justify-center font-semibold text-sm text-white bg-teal-600 hover:bg-teal-700 py-3 rounded-lg transition-colors shadow-sm"
                 >
                   Book Appointment

@@ -1,5 +1,5 @@
 "use client";
-
+// import { GenerateWidget } from "@/components/basekit";
 import Link from "next/link";
 import {
   ChevronLeft,
@@ -8,7 +8,7 @@ import {
   Clock,
   ArrowUpRight,
 } from "lucide-react";
-import { GenerateWidget } from "@/components/basekit";
+// import { GenerateWidget } from "@/components/basekit";
 
 export default function DoctorEarningsPage() {
   const earningsStats = [
@@ -89,9 +89,9 @@ export default function DoctorEarningsPage() {
             <TrendingUp className="w-4 h-4 text-teal-600" /> Earnings Over Time (2026)
           </h2>
 
-          <GenerateWidget type="inline_visualization" height="600px">
+          {/* <GenerateWidget type="inline_visualization" height="600px">
 
-        </GenerateWidget>
+        </GenerateWidget> */}
         </div>
 
         {/* Recent Transactions Table */}
