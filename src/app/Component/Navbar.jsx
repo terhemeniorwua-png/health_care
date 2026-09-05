@@ -70,7 +70,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/get-started"
+              href="/doctors"
               className="font-body font-semibold text-sm text-white bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded-md transition-colors shadow-sm"
             >
               Get Started
@@ -136,7 +136,7 @@ export default function Navbar() {
               Login
             </Link>
             <Link
-               href="/get-started"
+               href="/doctors"
               onClick={() => setIsMobileMenuOpen(false)}
               className="w-full text-center font-body font-semibold text-white bg-teal-600 hover:bg-teal-700 py-2.5 rounded-md transition-colors"
             >
