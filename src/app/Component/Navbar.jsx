@@ -129,14 +129,14 @@ export default function Navbar() {
 
           <div className="pt-4 border-t border-slate-200 flex flex-col gap-2">
             <Link
-              href="/login"
+              href="/auth/login"
               onClick={() => setIsMobileMenuOpen(false)}
               className="w-full text-center font-body font-medium text-slate-900 bg-slate-100 hover:bg-slate-200 py-2.5 rounded-md transition-colors"
             >
               Login
             </Link>
             <Link
-              href="/get-started"
+               href="/get-started"
               onClick={() => setIsMobileMenuOpen(false)}
               className="w-full text-center font-body font-semibold text-white bg-teal-600 hover:bg-teal-700 py-2.5 rounded-md transition-colors"
             >
