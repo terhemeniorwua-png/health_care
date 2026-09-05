@@ -64,7 +64,7 @@ export default function Navbar() {
             </button>
             
             <Link
-              href="/login"
+              href="/auth/login"
               className="font-body font-medium text-sm text-slate-900 px-3.5 py-2 hover:bg-slate-100 rounded-md transition-colors"
             >
               Login
