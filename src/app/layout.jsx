@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
 import { Manrope, Inter } from "next/font/google";
-import { CartProvider } from "@/context/CartContext";
+import { CartProvider } from "@/context/CartContext";import ScrollAnimationWrapper from "./Component/ScrollAnimationWrapper"; // Adjust path as needed
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -41,7 +41,9 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <CartProvider>
           <Navbar />
-          {children}
+          <ScrollAnimationWrapper>
+            {children}
+          </ScrollAnimationWrapper>
           <Footer />
         </CartProvider>
         </body>
