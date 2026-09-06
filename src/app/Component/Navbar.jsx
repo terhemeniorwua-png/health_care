@@ -28,7 +28,7 @@ export default function Navbar() {
               <Plus className="w-5 h-5 stroke-[3]" />
             </div>
             <span className="font-heading font-extrabold text-xl text-slate-900 tracking-tight">
-              HealthBrand
+              VitaCare
             </span>
           </Link>
 

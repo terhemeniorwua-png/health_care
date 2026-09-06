@@ -14,7 +14,7 @@ export default function Footer() {
                 <Plus className="w-5 h-5 stroke-[3]" />
               </div>
               <span className="font-heading font-extrabold text-xl text-slate-900 tracking-tight">
-                HealthBrand
+                VitaCare
               </span>
             </Link>
             <p className="mt-3 font-body text-xs text-slate-500 leading-relaxed">
