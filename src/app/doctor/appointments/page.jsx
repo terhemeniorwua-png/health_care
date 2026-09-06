@@ -184,13 +184,13 @@ export default function DoctorAppointmentsPage() {
                 key={apt.id}
                 className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs hover:border-teal-300 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               >
-                {/* Patient Info */}
+                {/* Patient Info
                 <div className="flex items-start gap-4">
                   <div
                     className={`w-12 h-12 rounded-2xl flex items-center justify-center font-extrabold text-sm border shrink-0 ${apt.avatarBg}`}
                   >
                     {apt.initials}
-                  </div>
+                  </div> */}
 
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
