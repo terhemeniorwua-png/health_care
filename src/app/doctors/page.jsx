@@ -472,7 +472,7 @@ export default function FindDoctorsPage() {
                         View Profile
                       </Link>
                       <Link
-                        href={`/doctors/${doc.id}/book`}
+                         href={`/appointments/book?doctorId=${doc.id}`}
                         className="w-full text-center font-semibold text-xs sm:text-sm text-white bg-teal-600 hover:bg-teal-700 py-2.5 rounded-md transition-colors"
                       >
                         Book Appointment
