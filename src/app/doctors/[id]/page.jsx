@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import {
   BadgeCheck,
   Star,
@@ -12,21 +13,12 @@ import {
   GraduationCap,
   Briefcase,
   MessageSquare,
-  Calendar as CalendarIcon,
-  ChevronRight,
-  ChevronLeft,
   CheckCircle2,
-  Award
 } from "lucide-react";
 
-export default function DoctorProfilePage({ params }) {
-  const [consultationMode, setConsultationMode] = useState("video"); // 'video' | 'in-person'
-  const [selectedDate, setSelectedDate] = useState("10"); // Default Mon 10th
-  const [selectedTime, setSelectedTime] = useState("09:00 AM");
-
-  // Sample Doctor Data matching specs
-  const doctor = {
-    id: {params}?.id || "1",
+const DOCTORS = [
+  {
+    id: "1",
     name: "Dr. Sarah Williams",
     specialty: "Cardiologist",
     isVerified: true,
@@ -35,14 +27,17 @@ export default function DoctorProfilePage({ params }) {
     reviewsCount: 324,
     experienceYears: "12 years experience",
     location: "Abuja, Nigeria",
+
     about:
       "Dr. Sarah Williams is a cardiologist with extensive experience in cardiovascular care and patient management.",
+
     specializations: [
       "Hypertension",
       "Heart disease",
       "Preventive cardiology",
       "Cardiovascular health",
     ],
+
     education: [
       {
         title: "Medical Degree (MBBS)",
@@ -60,30 +55,40 @@ export default function DoctorProfilePage({ params }) {
         year: "2018",
       },
     ],
+
     experienceTimeline: [
       {
         role: "Senior Consultant Cardiologist",
         organization: "National Hospital Abuja",
         period: "2020 – Present",
-        description: "Leading cardiovascular diagnostic unit and critical care team.",
+        description:
+          "Leading cardiovascular diagnostic unit and critical care team.",
       },
       {
         role: "Consultant Cardiologist",
         organization: "Federal Medical Centre",
         period: "2016 – 2020",
-        description: "Specialized in non-invasive cardiology and hypertension treatment.",
+        description:
+          "Specialized in non-invasive cardiology and hypertension treatment.",
       },
       {
         role: "Resident Physician",
         organization: "University College Hospital",
         period: "2012 – 2016",
-        description: "Completed residency training in internal medicine and cardiology.",
+        description:
+          "Completed residency training in internal medicine and cardiology.",
       },
     ],
+
     consultationOptions: {
-      video: { price: "₦15,000", label: "Video Consultation", icon: Video },
-      inPerson: { price: "₦20,000", label: "In-Person Consultation", icon: Building2 },
+      video: {
+        price: "₦15,000",
+      },
+      inPerson: {
+        price: "₦20,000",
+      },
     },
+
     availableDays: [
       { day: "Mon", date: "10" },
       { day: "Tue", date: "11" },
@@ -91,38 +96,439 @@ export default function DoctorProfilePage({ params }) {
       { day: "Thu", date: "13" },
       { day: "Fri", date: "14" },
     ],
-    availableTimes: ["09:00 AM", "11:00 AM", "02:00 PM", "04:00 PM"],
+
+    availableTimes: [
+      "09:00 AM",
+      "11:00 AM",
+      "02:00 PM",
+      "04:00 PM",
+    ],
+
     reviews: [
       {
         id: "r1",
         author: "Amina B.",
         rating: 5,
         date: "2 weeks ago",
-        comment: "Dr. Williams was extremely patient and thorough. She explained my hypertension management plan in detail. Highly recommended!",
+        comment:
+          "Dr. Williams was extremely patient and thorough. She explained my hypertension management plan in detail. Highly recommended!",
       },
       {
         id: "r2",
         author: "Emeka O.",
         rating: 5,
         date: "1 month ago",
-        comment: "Very professional video consultation. She reviewed all my lab results online and gave clear follow-up instructions.",
+        comment:
+          "Very professional video consultation. She reviewed all my lab results online and gave clear follow-up instructions.",
       },
       {
         id: "r3",
         author: "Tunde A.",
         rating: 4.8,
         date: "2 months ago",
-        comment: "Excellent bedside manner and great diagnostic accuracy. Long wait time at the clinic, but worth it.",
+        comment:
+          "Excellent bedside manner and great diagnostic accuracy. Long wait time at the clinic, but worth it.",
       },
     ],
+
     image:
       "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400",
-  };
+  },
+
+  {
+    id: "2",
+    name: "Dr. Ibrahim Musa",
+    specialty: "Dermatologist",
+    isVerified: true,
+    verifiedTitle: "Verified Healthcare Professional",
+    rating: 4.8,
+    reviewsCount: 94,
+    experienceYears: "9 years experience",
+    location: "Abuja, Nigeria",
+
+    about:
+      "Dr. Ibrahim Musa is a dermatologist specializing in skin health, acne management, allergic skin conditions, and general dermatological care.",
+
+    specializations: [
+      "Acne treatment",
+      "Skin allergies",
+      "Eczema",
+      "General dermatology",
+    ],
+
+    education: [
+      {
+        title: "Medical Degree (MBBS)",
+        institution: "Ahmadu Bello University",
+        year: "2015",
+      },
+      {
+        title: "Specialist Training in Dermatology",
+        institution: "National Postgraduate Medical College",
+        year: "2019",
+      },
+      {
+        title: "Professional Certification",
+        institution: "Nigerian Medical Association",
+        year: "2020",
+      },
+    ],
+
+    experienceTimeline: [
+      {
+        role: "Consultant Dermatologist",
+        organization: "National Hospital Abuja",
+        period: "2021 – Present",
+        description:
+          "Provides specialist diagnosis and treatment for a wide range of skin conditions.",
+      },
+      {
+        role: "Dermatology Specialist",
+        organization: "University Teaching Hospital",
+        period: "2019 – 2021",
+        description:
+          "Managed patients with chronic skin conditions, allergies, and infections.",
+      },
+      {
+        role: "Resident Physician",
+        organization: "Ahmadu Bello University Teaching Hospital",
+        period: "2015 – 2019",
+        description:
+          "Completed medical residency and specialist dermatology training.",
+      },
+    ],
+
+    consultationOptions: {
+      video: {
+        price: "₦12,000",
+      },
+      inPerson: {
+        price: "₦15,000",
+      },
+    },
+
+    availableDays: [
+      { day: "Mon", date: "10" },
+      { day: "Tue", date: "11" },
+      { day: "Wed", date: "12" },
+      { day: "Thu", date: "13" },
+      { day: "Fri", date: "14" },
+    ],
+
+    availableTimes: [
+      "09:00 AM",
+      "10:30 AM",
+      "01:00 PM",
+      "03:30 PM",
+    ],
+
+    reviews: [
+      {
+        id: "r1",
+        author: "Fatima A.",
+        rating: 5,
+        date: "1 week ago",
+        comment:
+          "Dr. Musa was very professional and explained my skin condition clearly. The treatment has already started helping.",
+      },
+      {
+        id: "r2",
+        author: "David K.",
+        rating: 5,
+        date: "3 weeks ago",
+        comment:
+          "Excellent consultation. He answered all my questions and gave me a clear treatment plan.",
+      },
+      {
+        id: "r3",
+        author: "Mary O.",
+        rating: 4,
+        date: "2 months ago",
+        comment:
+          "Very knowledgeable and friendly. I would definitely recommend him.",
+      },
+    ],
+
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=400",
+  },
+
+  {
+    id: "3",
+    name: "Dr. Amara Okafor",
+    specialty: "Pediatrician",
+    isVerified: true,
+    verifiedTitle: "Verified Healthcare Professional",
+    rating: 5.0,
+    reviewsCount: 215,
+    experienceYears: "15 years experience",
+    location: "Abuja, Nigeria",
+
+    about:
+      "Dr. Amara Okafor is a pediatrician focused on providing compassionate medical care for infants, children, and adolescents.",
+
+    specializations: [
+      "Child health",
+      "Newborn care",
+      "Child nutrition",
+      "Preventive pediatrics",
+    ],
+
+    education: [
+      {
+        title: "Medical Degree (MBBS)",
+        institution: "University of Nigeria",
+        year: "2011",
+      },
+      {
+        title: "Specialist Training in Pediatrics",
+        institution: "National Postgraduate Medical College",
+        year: "2015",
+      },
+      {
+        title: "Professional Certification",
+        institution: "Paediatric Association of Nigeria",
+        year: "2017",
+      },
+    ],
+
+    experienceTimeline: [
+      {
+        role: "Senior Consultant Pediatrician",
+        organization: "National Hospital Abuja",
+        period: "2020 – Present",
+        description:
+          "Provides comprehensive pediatric care and leads child wellness programs.",
+      },
+      {
+        role: "Consultant Pediatrician",
+        organization: "Federal Medical Centre",
+        period: "2015 – 2020",
+        description:
+          "Managed pediatric patients and provided preventive and emergency care.",
+      },
+      {
+        role: "Resident Pediatrician",
+        organization: "University of Nigeria Teaching Hospital",
+        period: "2011 – 2015",
+        description:
+          "Completed pediatric residency and specialized clinical training.",
+      },
+    ],
+
+    consultationOptions: {
+      video: {
+        price: "₦18,000",
+      },
+      inPerson: {
+        price: "₦18,000",
+      },
+    },
+
+    availableDays: [
+      { day: "Mon", date: "10" },
+      { day: "Tue", date: "11" },
+      { day: "Wed", date: "12" },
+      { day: "Thu", date: "13" },
+      { day: "Fri", date: "14" },
+    ],
+
+    availableTimes: [
+      "08:30 AM",
+      "10:00 AM",
+      "01:30 PM",
+      "03:00 PM",
+    ],
+
+    reviews: [
+      {
+        id: "r1",
+        author: "Chidinma E.",
+        rating: 5,
+        date: "1 week ago",
+        comment:
+          "Dr. Amara was wonderful with my child. She was patient, gentle, and explained everything clearly.",
+      },
+      {
+        id: "r2",
+        author: "John M.",
+        rating: 5,
+        date: "1 month ago",
+        comment:
+          "Very caring doctor. The consultation was detailed and reassuring.",
+      },
+      {
+        id: "r3",
+        author: "Blessing I.",
+        rating: 5,
+        date: "2 months ago",
+        comment:
+          "One of the best pediatricians we have consulted. Highly recommended.",
+      },
+    ],
+
+    image:
+      "https://images.unsplash.com/photo-1594824813566-78a9c72c83ff?auto=format&fit=crop&q=80&w=400",
+  },
+
+  {
+    id: "4",
+    name: "Dr. Emmanuel Adebayo",
+    specialty: "General Practice",
+    isVerified: true,
+    verifiedTitle: "Verified Healthcare Professional",
+    rating: 4.7,
+    reviewsCount: 82,
+    experienceYears: "8 years experience",
+    location: "Abuja, Nigeria",
+
+    about:
+      "Dr. Emmanuel Adebayo is a general practitioner providing comprehensive primary healthcare, routine medical assessments, and preventive care.",
+
+    specializations: [
+      "Primary healthcare",
+      "Preventive medicine",
+      "Routine checkups",
+      "General medical care",
+    ],
+
+    education: [
+      {
+        title: "Medical Degree (MBBS)",
+        institution: "University of Lagos",
+        year: "2016",
+      },
+      {
+        title: "Primary Care Training",
+        institution: "National Hospital Abuja",
+        year: "2018",
+      },
+      {
+        title: "Professional Certification",
+        institution: "Medical and Dental Council of Nigeria",
+        year: "2019",
+      },
+    ],
+
+    experienceTimeline: [
+      {
+        role: "General Practitioner",
+        organization: "Private Medical Centre Abuja",
+        period: "2021 – Present",
+        description:
+          "Provides primary healthcare, diagnosis, treatment, and preventive medical services.",
+      },
+      {
+        role: "Medical Officer",
+        organization: "Federal Medical Centre",
+        period: "2018 – 2021",
+        description:
+          "Provided general medical care and managed patients across multiple departments.",
+      },
+      {
+        role: "House Officer",
+        organization: "University Teaching Hospital",
+        period: "2016 – 2018",
+        description:
+          "Completed clinical rotations and gained experience across major medical specialties.",
+      },
+    ],
+
+    consultationOptions: {
+      video: {
+        price: "₦10,000",
+      },
+      inPerson: {
+        price: "₦12,000",
+      },
+    },
+
+    availableDays: [
+      { day: "Mon", date: "10" },
+      { day: "Tue", date: "11" },
+      { day: "Wed", date: "12" },
+      { day: "Thu", date: "13" },
+      { day: "Fri", date: "14" },
+    ],
+
+    availableTimes: [
+      "09:00 AM",
+      "11:00 AM",
+      "01:00 PM",
+      "03:00 PM",
+    ],
+
+    reviews: [
+      {
+        id: "r1",
+        author: "Peter O.",
+        rating: 5,
+        date: "2 weeks ago",
+        comment:
+          "Very professional and easy to talk to. He explained my diagnosis clearly.",
+      },
+      {
+        id: "r2",
+        author: "Grace A.",
+        rating: 4,
+        date: "1 month ago",
+        comment:
+          "The consultation was straightforward and helpful. I got the treatment I needed.",
+      },
+      {
+        id: "r3",
+        author: "Michael T.",
+        rating: 5,
+        date: "3 months ago",
+        comment:
+          "Great doctor and very responsive. I would definitely book another consultation.",
+      },
+    ],
+
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=400",
+  },
+];
+
+export default function DoctorProfilePage() {
+  const params = useParams();
+
+  const doctorId = params?.id;
+
+  const doctor = DOCTORS.find((doc) => doc.id === doctorId);
+
+  // JavaScript version — no TypeScript generic
+  const [consultationMode, setConsultationMode] = useState("video");
+
+  const [selectedDate, setSelectedDate] = useState("10");
+  const [selectedTime, setSelectedTime] = useState("09:00 AM");
+
+  if (!doctor) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+        <div className="bg-white rounded-xl border border-slate-200 p-8 shadow-sm text-center max-w-md w-full">
+          <h1 className="font-bold text-xl text-slate-900">
+            Doctor not found
+          </h1>
+
+          <p className="text-sm text-slate-500 mt-2">
+            The doctor profile you are looking for does not exist.
+          </p>
+
+          <Link
+            href="/doctors"
+            className="inline-flex mt-6 items-center justify-center font-semibold text-sm text-white bg-teal-600 hover:bg-teal-700 px-6 py-3 rounded-lg transition-colors"
+          >
+            Back to Doctors
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-8">
-        
         {/* Profile Header */}
         <div className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 shadow-sm">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -132,6 +538,7 @@ export default function DoctorProfilePage({ params }) {
                 alt={doctor.name}
                 className="w-28 h-28 sm:w-32 sm:h-32 rounded-xl object-cover border border-slate-100 shrink-0"
               />
+
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <h1 className="font-extrabold text-2xl sm:text-3xl text-slate-900">
@@ -154,6 +561,7 @@ export default function DoctorProfilePage({ params }) {
                   <div className="flex items-center gap-1 font-semibold text-slate-900">
                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                     <span>{doctor.rating}</span>
+
                     <span className="text-slate-400 font-normal">
                       — {doctor.reviewsCount} reviews
                     </span>
@@ -175,14 +583,12 @@ export default function DoctorProfilePage({ params }) {
             {/* Header CTA Buttons */}
             <div className="flex sm:flex-col gap-3 w-full md:w-auto shrink-0">
               <Link
-                 href={`/appointments/book?doctorId=${doctor.id}`}
-//                 {`/doctors/${doctor.id}?type=${consultationMode}&date=${selectedDate}&time=${encodeURIComponent(
-//   selectedTime
-// )}`}
+                href={`/appointments/book?doctorId=${doctor.id}`}
                 className="flex-1 sm:flex-none text-center font-semibold text-sm text-white bg-teal-600 hover:bg-teal-700 px-6 py-3 rounded-lg transition-colors shadow-sm"
               >
                 Book Appointment
               </Link>
+
               <button
                 type="button"
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 font-semibold text-sm text-slate-700 bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-lg transition-colors"
@@ -196,13 +602,14 @@ export default function DoctorProfilePage({ params }) {
 
         {/* Main Content & Sidebar Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
           {/* Main Column */}
           <div className="lg:col-span-2 space-y-8">
-            
             {/* About */}
             <section className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-              <h2 className="font-bold text-lg text-slate-900 mb-3">About</h2>
+              <h2 className="font-bold text-lg text-slate-900 mb-3">
+                About
+              </h2>
+
               <p className="text-slate-600 text-sm leading-relaxed">
                 {doctor.about}
               </p>
@@ -213,6 +620,7 @@ export default function DoctorProfilePage({ params }) {
               <h2 className="font-bold text-lg text-slate-900 mb-4">
                 Specializations
               </h2>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {doctor.specializations.map((spec, idx) => (
                   <div
@@ -232,11 +640,20 @@ export default function DoctorProfilePage({ params }) {
                 <GraduationCap className="w-5 h-5 text-teal-600" />
                 <span>Education</span>
               </h2>
+
               <div className="space-y-4">
                 {doctor.education.map((edu, idx) => (
-                  <div key={idx} className="border-l-2 border-teal-600 pl-4 py-0.5">
-                    <p className="font-semibold text-sm text-slate-900">{edu.title}</p>
-                    <p className="text-xs text-slate-500">{edu.institution} • {edu.year}</p>
+                  <div
+                    key={idx}
+                    className="border-l-2 border-teal-600 pl-4 py-0.5"
+                  >
+                    <p className="font-semibold text-sm text-slate-900">
+                      {edu.title}
+                    </p>
+
+                    <p className="text-xs text-slate-500">
+                      {edu.institution} • {edu.year}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -252,19 +669,21 @@ export default function DoctorProfilePage({ params }) {
               <div className="relative border-l border-slate-200 pl-6 space-y-6 ml-2">
                 {doctor.experienceTimeline.map((exp, idx) => (
                   <div key={idx} className="relative">
-                    {/* Timeline Node Icon */}
                     <div className="absolute -left-[31px] top-1.5 w-3 h-3 bg-teal-600 rounded-full border-2 border-white ring-4 ring-slate-100" />
 
                     <div>
                       <span className="text-xs font-medium text-teal-600 bg-teal-50 px-2 py-0.5 rounded">
                         {exp.period}
                       </span>
+
                       <h3 className="font-bold text-sm text-slate-900 mt-1">
                         {exp.role}
                       </h3>
+
                       <p className="text-xs font-medium text-slate-500">
                         {exp.organization}
                       </p>
+
                       <p className="text-xs text-slate-600 mt-1.5">
                         {exp.description}
                       </p>
@@ -278,14 +697,19 @@ export default function DoctorProfilePage({ params }) {
             <section className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div>
-                  <h2 className="font-bold text-lg text-slate-900">Reviews</h2>
+                  <h2 className="font-bold text-lg text-slate-900">
+                    Reviews
+                  </h2>
+
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex items-center text-amber-400">
                       <Star className="w-4 h-4 fill-amber-400" />
+
                       <span className="font-bold text-sm text-slate-900 ml-1">
                         {doctor.rating}
                       </span>
                     </div>
+
                     <span className="text-xs text-slate-400">
                       Based on {doctor.reviewsCount} patient reviews
                     </span>
@@ -295,12 +719,18 @@ export default function DoctorProfilePage({ params }) {
 
               <div className="space-y-4 divide-y divide-slate-100">
                 {doctor.reviews.map((rev) => (
-                  <div key={rev.id} className="pt-4 first:pt-0 space-y-1.5">
+                  <div
+                    key={rev.id}
+                    className="pt-4 first:pt-0 space-y-1.5"
+                  >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-xs text-slate-900">
                         {rev.author}
                       </span>
-                      <span className="text-[11px] text-slate-400">{rev.date}</span>
+
+                      <span className="text-[11px] text-slate-400">
+                        {rev.date}
+                      </span>
                     </div>
 
                     <div className="flex items-center text-amber-400">
@@ -323,12 +753,10 @@ export default function DoctorProfilePage({ params }) {
                 ))}
               </div>
             </section>
-
           </div>
 
-          {/* Sidebar Column: Consultation Options & Interactive Availability */}
+          {/* Sidebar Column */}
           <div className="space-y-6">
-            
             {/* Consultation Options Card */}
             <section className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-4">
               <h2 className="font-bold text-base text-slate-900 border-b border-slate-100 pb-3">
@@ -348,13 +776,18 @@ export default function DoctorProfilePage({ params }) {
                 >
                   <div className="flex items-center gap-3">
                     <Video className="w-5 h-5 text-teal-600" />
+
                     <div>
                       <p className="font-semibold text-xs text-slate-900">
                         Video Consultation
                       </p>
-                      <p className="text-[11px] text-slate-500">Online video call</p>
+
+                      <p className="text-[11px] text-slate-500">
+                        Online video call
+                      </p>
                     </div>
                   </div>
+
                   <span className="font-bold text-sm text-slate-900">
                     {doctor.consultationOptions.video.price}
                   </span>
@@ -372,13 +805,18 @@ export default function DoctorProfilePage({ params }) {
                 >
                   <div className="flex items-center gap-3">
                     <Building2 className="w-5 h-5 text-teal-600" />
+
                     <div>
                       <p className="font-semibold text-xs text-slate-900">
                         In-Person Consultation
                       </p>
-                      <p className="text-[11px] text-slate-500">Clinic visit</p>
+
+                      <p className="text-[11px] text-slate-500">
+                        Clinic visit
+                      </p>
                     </div>
                   </div>
+
                   <span className="font-bold text-sm text-slate-900">
                     {doctor.consultationOptions.inPerson.price}
                   </span>
@@ -389,14 +827,20 @@ export default function DoctorProfilePage({ params }) {
             {/* Availability Calendar & Time Selection Card */}
             <section className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-5">
               <div className="flex items-center justify-between">
-                <h2 className="font-bold text-base text-slate-900">Availability</h2>
-                <span className="text-xs text-slate-400 font-medium">September</span>
+                <h2 className="font-bold text-base text-slate-900">
+                  Availability
+                </h2>
+
+                <span className="text-xs text-slate-400 font-medium">
+                  September
+                </span>
               </div>
 
               {/* Day Calendar Strip */}
               <div className="grid grid-cols-5 gap-1.5 text-center">
                 {doctor.availableDays.map((item) => {
                   const isSelected = selectedDate === item.date;
+
                   return (
                     <button
                       key={item.date}
@@ -411,6 +855,7 @@ export default function DoctorProfilePage({ params }) {
                       <span className="block text-[10px] uppercase tracking-wider font-medium opacity-80">
                         {item.day}
                       </span>
+
                       <span className="block font-bold text-sm mt-0.5">
                         {item.date}
                       </span>
@@ -421,10 +866,14 @@ export default function DoctorProfilePage({ params }) {
 
               {/* Available Times Slot Grid */}
               <div className="space-y-2 pt-2">
-                <p className="text-xs font-semibold text-slate-700">Available times:</p>
+                <p className="text-xs font-semibold text-slate-700">
+                  Available times:
+                </p>
+
                 <div className="grid grid-cols-2 gap-2">
                   {doctor.availableTimes.map((time) => {
                     const isTimeSelected = selectedTime === time;
+
                     return (
                       <button
                         key={time}
@@ -446,16 +895,14 @@ export default function DoctorProfilePage({ params }) {
               {/* Booking CTA */}
               <div className="pt-2">
                 <Link
-                 href={`/appointments/book?doctorId=${doctor.id}`}
+                  href={`/appointments/book?doctorId=${doctor.id}`}
                   className="w-full flex items-center justify-center font-semibold text-sm text-white bg-teal-600 hover:bg-teal-700 py-3 rounded-lg transition-colors shadow-sm"
                 >
                   Book Appointment
                 </Link>
               </div>
             </section>
-
           </div>
-
         </div>
       </div>
     </div>
